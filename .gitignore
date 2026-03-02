@@ -1,0 +1,26 @@
+# macOS
+.DS_Store
+
+# VS Code (optional — ignore if you don’t want to commit settings)
+.vscode/
+
+# CMake build folders + generated files
+build/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+compile_commands.json
+how
+# C/C++ build artifacts
+*.o
+*.obj
+*.a
+*.so
+*.dylib
+*.dll
+*.exe
+*.out
+*.app
+*.dSYM/
