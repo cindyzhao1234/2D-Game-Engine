@@ -4,6 +4,7 @@
 #include "Input.h"
 #include <ctime>
 #include <stdio.h>
+#include "Transform.h"
 
 Engine::Engine(){
     //although fpsTarget, dt, and running are under private, any method of the same class can read/write them. but code outside the class cannot do engine.running = true;
@@ -21,8 +22,11 @@ bool Engine::init(int w, int h, const char* title){
 }
 
 void Engine::run(){
-    Vector2 playerpos = { (float)GetScreenWidth() / 2, (float)GetScreenHeight() / 2 };
+    //-----TEST CODE
+    TransformComponent playerTransform;
+    // Vector2 playerpos = { (float)GetScreenWidth() / 2, (float)GetScreenHeight() / 2 };
     Input input;
+    //--- END TEST CODE
 
     while(!WindowShouldClose() && running){
         //update dt using raylib's frame time
@@ -32,31 +36,33 @@ void Engine::run(){
         ClearBackground(WHITE);
         DrawFPS(10,10);
         
-        //----------TESTING
+        //----------TEST CODE
 
         
         float speed = 300.0f;
         if(input.isDown("MoveLeft")){
             DrawText("A pressed", 10, 40, 16, BLACK);
-            playerpos.x -= speed * dt;
+            playerTransform.pos.x -= speed * dt;
         }
 
         if(input.isDown("MoveRight")){
             DrawText("D pressed", 10, 40, 16, BLACK);
-            playerpos.x += speed * dt;
+            playerTransform.pos.x += speed * dt;
         }
 
         if(input.isDown("MoveUp")){
             DrawText("W pressed", 10, 40, 16, BLACK);
-            playerpos.y -= speed * dt;
+            playerTransform.pos.y -= speed * dt;
         }
 
         if(input.isDown("MoveDown")){
             DrawText("S pressed", 10, 40, 16, BLACK);
-            playerpos.y += speed * dt;
+            playerTransform.pos.y += speed * dt;
         }
 
-        DrawCircle(playerpos.x, playerpos.y, 20.0, BLACK);
+        DrawCircle(playerTransform.pos.x, playerTransform.pos.y, 20.0, BLACK);
+
+        // ------- END TEST CODE
 
         EndDrawing();
     }

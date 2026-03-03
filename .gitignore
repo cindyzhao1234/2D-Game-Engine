@@ -13,6 +13,8 @@ cmake_install.cmake
 Makefile
 compile_commands.json
 how
+test
+
 # C/C++ build artifacts
 *.o
 *.obj
