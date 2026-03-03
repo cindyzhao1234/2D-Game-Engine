@@ -10,6 +10,7 @@ find_package(raylib REQUIRED)
 add_executable(engine_demo
     src/main.cpp
     src/Engine.cpp
+    src/Input.cpp
 )
 
 target_include_directories(engine_demo PRIVATE src)
