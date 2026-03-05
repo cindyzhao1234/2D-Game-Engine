@@ -37,3 +37,6 @@ TransformComponent groups the "spacial state" of an object in one place.
 
 Renderer2D:
 - Rather than the game code calling DrawTexture, it should call the engine API like renderer.draw()
+
+World space: where things "exist" in the game world
+SCreen space: pixel coordinates on the window (top left is 0,0, bottom rigth is width, height)

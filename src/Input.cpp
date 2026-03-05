@@ -1,10 +1,12 @@
 #include "Input.h"
 
 void Input::bind(const std::string& actionName, KeyboardKey k){
+    //k is passed by value (a copy)
     actions[actionName] = k;
 }
 
 bool Input::GetKey(const std::string& actionName, KeyboardKey& k){
+    //k is passed by reference. if passed without &, GetKey would only change a local copy
     auto it = actions.find(actionName);
 
     if(it == actions.end()){

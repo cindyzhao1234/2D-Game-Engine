@@ -4,7 +4,7 @@
 #include "Input.h"
 #include <ctime>
 #include <stdio.h>
-#include "Transform.h"
+#include "TransformComponent.h"
 
 Engine::Engine(){
     //although fpsTarget, dt, and running are under private, any method of the same class can read/write them. but code outside the class cannot do engine.running = true;
