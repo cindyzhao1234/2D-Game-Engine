@@ -23,6 +23,9 @@ class World{
 
         SpriteComponent& getSprite(Entity e);
 
+        const std::unordered_map<Entity, SpriteComponent>& getSpriteStorage() const;
+        const std::unordered_map<Entity, TransformComponent>& getTransformStorage() const;
+
 
     private:
         std::unordered_map<Entity, SpriteComponent> spriteStorage;

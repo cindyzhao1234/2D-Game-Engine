@@ -4,7 +4,7 @@
 #include "Input.h"
 #include <ctime>
 #include <stdio.h>
-#include "TransformComponent.h"
+#include "./ECS/Components.h"
 #include "MyRenderer2D.h"
 #include "MyAssetManager.h"
 

@@ -32,7 +32,7 @@ bool World::hasTransform(Entity e) const{
 TransformComponent& World::getTransform(Entity e){
     auto it = transformStorage.find(e);
 
-    assert(it != end());
+    assert(it != transformStorage.end());
 
     return it->second;
 } //access it(assume exists, assert otherwise)
@@ -54,7 +54,15 @@ bool World::hasSprite(Entity e) const{
 SpriteComponent& World::getSprite(Entity e){
     auto it = spriteStorage.find(e);
 
-    assert(it != end());
+    assert(it != spriteStorage.end());
 
     return it->second;
+}
+
+const std::unordered_map<Entity, SpriteComponent>& World::getSpriteStorage() const{
+    return spriteStorage;
+}
+
+const std::unordered_map<Entity, TransformComponent>& World::getTransformStorage() const{
+    return transformStorage;
 }
