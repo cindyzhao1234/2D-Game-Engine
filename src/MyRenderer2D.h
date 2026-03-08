@@ -1,5 +1,5 @@
 #include "MyCamera2D.h"
-#include "TransformComponent.h"
+#include "../ECS/Components.h"
 
 #include <string>
 #include <vector>
