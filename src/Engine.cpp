@@ -5,6 +5,8 @@
 #include <ctime>
 #include <stdio.h>
 #include "TransformComponent.h"
+#include "MyRenderer2D.h"
+#include "MyAssetManager.h"
 
 Engine::Engine(){
     //although fpsTarget, dt, and running are under private, any method of the same class can read/write them. but code outside the class cannot do engine.running = true;
@@ -24,6 +26,11 @@ bool Engine::init(int w, int h, const char* title){
 void Engine::run(){
     //-----TEST CODE
     TransformComponent playerTransform;
+    MyRenderer2D renderer;
+    MyAssetManager assetManager;
+    TransformComponent tf;
+    tf.pos = {200, 200};
+    assetManager.loadTexture("kettle", "../kettleTest.png");
     // Vector2 playerpos = { (float)GetScreenWidth() / 2, (float)GetScreenHeight() / 2 };
     Input input;
     //--- END TEST CODE
@@ -60,8 +67,16 @@ void Engine::run(){
             playerTransform.pos.y += speed * dt;
         }
 
-        DrawCircle(playerTransform.pos.x, playerTransform.pos.y, 20.0, BLACK);
 
+        DrawCircle(playerTransform.pos.x, playerTransform.pos.y, 20.0, BLACK);
+        renderer.beginFrame();
+        renderer.submitTextScreen("hello", {100, 100}, 16, BLACK, 100);
+        
+
+        Texture2D& tex = assetManager.getTexture("kettle");
+        renderer.submitSprite(tex, tf, 1000);
+        // assetManager.unloadAll();
+        renderer.flush();
         // ------- END TEST CODE
 
         EndDrawing();
