@@ -14,3 +14,40 @@ void renderSystem(World& world, MyRenderer2D& renderer, MyAssetManager& assets){
         }
     }
 }
+
+void movementSystem(World& world, Entity player, Input& input, float dt, float speed){
+    /*
+    - gets player’s Transform
+    - checks input actions
+    - updates transform.pos using speed * dt
+
+    (Only affects the player entity for now.)
+    */
+
+    if(!world.hasTransform(player)){
+        return;
+    } 
+
+    TransformComponent& playerTf = world.getTransform(player);
+
+    if(input.isDown("MoveLeft")){
+        // DrawText("A pressed", 10, 40, 16, BLACK);
+        playerTf.pos.x -= speed * dt;
+    }
+
+    if(input.isDown("MoveRight")){
+        // DrawText("D pressed", 10, 40, 16, BLACK);
+        playerTf.pos.x += speed * dt;
+    }
+
+    if(input.isDown("MoveUp")){
+        // DrawText("W pressed", 10, 40, 16, BLACK);
+        playerTf.pos.y -= speed * dt;
+    }
+
+    if(input.isDown("MoveDown")){
+        // DrawText("S pressed", 10, 40, 16, BLACK);
+        playerTf.pos.y += speed * dt;
+    }
+
+}

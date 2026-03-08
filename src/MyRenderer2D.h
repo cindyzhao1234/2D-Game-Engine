@@ -1,5 +1,7 @@
+#pragma once
+
 #include "MyCamera2D.h"
-#include "../ECS/Components.h"
+#include "ECS/Components.h"
 
 #include <string>
 #include <vector>

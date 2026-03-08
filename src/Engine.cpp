@@ -4,9 +4,13 @@
 #include "Input.h"
 #include <ctime>
 #include <stdio.h>
-#include "./ECS/Components.h"
+#include "ECS/Components.h"
 #include "MyRenderer2D.h"
 #include "MyAssetManager.h"
+#include "ECS/World.h"
+#include "ECS/Systems.h"
+#include "ECS/Entity.h"
+
 
 Engine::Engine(){
     //although fpsTarget, dt, and running are under private, any method of the same class can read/write them. but code outside the class cannot do engine.running = true;
@@ -25,14 +29,27 @@ bool Engine::init(int w, int h, const char* title){
 
 void Engine::run(){
     //-----TEST CODE
-    TransformComponent playerTransform;
-    MyRenderer2D renderer;
+    World world;
+
+    Entity background = world.createEntity();
+    world.addSprite(background, {"background", 0});
+    world.addTransform(background, {{100.0, 100.0}, 0.0, {1.0, 1.0}});
+    Entity player = world.createEntity();
+    world.addSprite(player, {"player", 10});
+    world.addTransform(player, {{100.0, 100.0}, 0.0, {1.0, 1.0}});
+
+    Entity NPC = world.createEntity();
+    world.addSprite(NPC, {"NPC", 10});
+    world.addTransform(NPC, {{200.0, 200.0}, 0.0, {1.0, 1.0}});
+
     MyAssetManager assetManager;
-    TransformComponent tf;
-    tf.pos = {200, 200};
-    assetManager.loadTexture("kettle", "../kettleTest.png");
-    // Vector2 playerpos = { (float)GetScreenWidth() / 2, (float)GetScreenHeight() / 2 };
+
+    assetManager.loadTexture("background", "../background.png");
+    assetManager.loadTexture("player", "../player.png");
+    assetManager.loadTexture("NPC", "../kettleTest.png");
+
     Input input;
+    MyRenderer2D renderer;
     //--- END TEST CODE
 
     while(!WindowShouldClose() && running){
@@ -44,39 +61,18 @@ void Engine::run(){
         DrawFPS(10,10);
         
         //----------TEST CODE
-
         
         float speed = 300.0f;
-        if(input.isDown("MoveLeft")){
-            DrawText("A pressed", 10, 40, 16, BLACK);
-            playerTransform.pos.x -= speed * dt;
-        }
 
-        if(input.isDown("MoveRight")){
-            DrawText("D pressed", 10, 40, 16, BLACK);
-            playerTransform.pos.x += speed * dt;
-        }
-
-        if(input.isDown("MoveUp")){
-            DrawText("W pressed", 10, 40, 16, BLACK);
-            playerTransform.pos.y -= speed * dt;
-        }
-
-        if(input.isDown("MoveDown")){
-            DrawText("S pressed", 10, 40, 16, BLACK);
-            playerTransform.pos.y += speed * dt;
-        }
-
-
-        DrawCircle(playerTransform.pos.x, playerTransform.pos.y, 20.0, BLACK);
+        movementSystem(world, player, input, dt, speed);
         renderer.beginFrame();
-        renderer.submitTextScreen("hello", {100, 100}, 16, BLACK, 100);
-        
 
-        Texture2D& tex = assetManager.getTexture("kettle");
-        renderer.submitSprite(tex, tf, 1000);
-        // assetManager.unloadAll();
+        renderSystem(world, renderer, assetManager);
+
         renderer.flush();
+
+
+        // assetManager.unloadAll();
         // ------- END TEST CODE
 
         EndDrawing();

@@ -14,6 +14,8 @@ add_executable(engine_demo
     src/MyRenderer2D.cpp
     src/MyCamera2D.cpp
     src/MyAssetManager.cpp
+    src/ECS/Systems.cpp
+    src/ECS/World.cpp
 )
 
 target_include_directories(engine_demo PRIVATE src)
