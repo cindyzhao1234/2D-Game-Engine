@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(2D-Game-Engine LANGUAGES CXX)
+project(GameEngine LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -7,8 +7,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 find_package(raylib REQUIRED)
 
-add_executable(engine_demo
-    src/main.cpp
+add_library(GameEngine
     src/Engine.cpp
     src/Input.cpp
     src/MyRenderer2D.cpp
@@ -18,5 +17,18 @@ add_executable(engine_demo
     src/ECS/World.cpp
 )
 
-target_include_directories(engine_demo PRIVATE src)
-target_link_libraries(engine_demo PRIVATE raylib)
+target_include_directories(GameEngine PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+)
+
+target_link_libraries(GameEngine PUBLIC
+    raylib
+)
+
+add_executable(engine_demo
+    src/main.cpp
+)
+
+target_link_libraries(engine_demo PRIVATE
+    GameEngine
+)
