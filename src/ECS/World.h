@@ -15,7 +15,7 @@ class World{
 
         bool hasTransform(Entity e) const; //check existence
 
-        TransformComponent& getTransform(Entity e); //access it(assume exists, assert otherwise)
+        TransformComponent& getTransform(Entity e) const; //access it(assume exists, assert otherwise)
 
         SpriteComponent& addSprite(Entity e, const SpriteComponent& s);
 
