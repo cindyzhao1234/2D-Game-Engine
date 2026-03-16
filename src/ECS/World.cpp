@@ -29,7 +29,7 @@ bool World::hasTransform(Entity e) const{
     return false;
 } //check existence
 
-TransformComponent& World::getTransform(Entity e) const{
+TransformComponent& World::getTransform(Entity e){
     auto it = transformStorage.find(e);
 
     assert(it != transformStorage.end());

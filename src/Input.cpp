@@ -1,15 +1,20 @@
 #include "Input.h"
 
-void Input::bind(const std::string& actionName, KeyboardKey k){
+void Input::bindKey(const std::string& actionName, KeyboardKey k){
     //k is passed by value (a copy)
-    actions[actionName] = k;
+    keyActions[actionName] = k;
+}
+
+void Input::bindMouse(const std::string& actionName, MouseButton button){
+    //k is passed by value (a copy)
+    mouseActions[actionName] = button;
 }
 
 bool Input::GetKey(const std::string& actionName, KeyboardKey& k){
     //k is passed by reference. if passed without &, GetKey would only change a local copy
-    auto it = actions.find(actionName);
+    auto it = keyActions.find(actionName);
 
-    if(it == actions.end()){
+    if(it == keyActions.end()){
         return false;
     }
 
@@ -17,10 +22,27 @@ bool Input::GetKey(const std::string& actionName, KeyboardKey& k){
     return true;
 }
 
+bool Input::GetMouse(const std::string& actionName, MouseButton& button){
+    //k is passed by reference. if passed without &, GetKey would only change a local copy
+    auto it = mouseActions.find(actionName);
+
+    if(it == mouseActions.end()){
+        return false;
+    }
+
+    button = it -> second;
+    return true;
+}
+
+
 bool Input::isDown(const std::string& actionName){    
     KeyboardKey k;
+    MouseButton button;
     if(!GetKey(actionName, k)){
-        return false;
+        if(!GetMouse(actionName, button)){
+            return false;
+        }
+        return IsMouseButtonDown(button);
     }
     return IsKeyDown(k);
 
@@ -28,9 +50,13 @@ bool Input::isDown(const std::string& actionName){
 
 bool Input::wasPressed(const std::string& actionName){
     KeyboardKey k;
+    MouseButton button;
     //the KeyboardKey value, first is the action name string
     if(!GetKey(actionName, k)){
-        return false;
+        if(!GetMouse(actionName, button)){
+            return false;
+        }
+        return IsMouseButtonPressed(button);
     }
     
     return IsKeyPressed(k);
