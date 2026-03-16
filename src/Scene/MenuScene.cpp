@@ -2,11 +2,8 @@
 #include "MenuScene.h"
 
 void MenuScene::onEnter(EngineContext& ctx) {
-    // Optional: set a background clear colour for the menu
-    // ctx.renderer.setClearColor(RAYWHITE);
-
-    // Optional: menu-specific bindings (only if you want them here instead of Engine init)
-    // ctx.input.bind("Start", KEY_E);
+    ctx.input.bindKey("Start", KEY_E);
+    ctx.input.bindMouse("Start", MOUSE_BUTTON_LEFT); // if you want click too
 }
 
 void MenuScene::onExit(EngineContext& ctx) {
@@ -20,6 +17,7 @@ void MenuScene::update(float dt, EngineContext& ctx) {
     // Switch to the game scene when Start is pressed
     if ( ctx.input.wasPressed("Interact") || ctx.input.wasPressed("LeftClick")) {
         startPressed = true;
+        ctx.scenes.changeScene(std::make_unique<GameScene>());
     }
 
 

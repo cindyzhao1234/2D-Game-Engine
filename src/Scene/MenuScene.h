@@ -7,6 +7,7 @@
 #include "Scene.h"          // base Scene
 #include "EngineContext.h"  // EngineContext
 #include "GameScene.h"      // switching target
+#include "SceneManager.h"
 
 class MenuScene : public Scene {
 public:

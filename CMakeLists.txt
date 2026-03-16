@@ -17,6 +17,7 @@ add_library(GameEngine
     src/ECS/World.cpp
     src/Scene/SceneManager.cpp
     src/Scene/MenuScene.cpp
+    src/Scene/GameScene.cpp
 )
 
 target_include_directories(GameEngine PUBLIC
